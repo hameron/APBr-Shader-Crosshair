@@ -22,14 +22,13 @@
 *
 * IF THE GAME CRASHES CROSSHAIR_SIZE IS WAY TO BIG!
 ****************************************************************************************/
-
 {
- if (SceneUV.x >= 0.5 - CROSSHAIR_TOP_CHEVRON_SIZE && SceneUV.x <= 0.5 + CROSSHAIR_TOP_CHEVRON_SIZE && SceneUV.x >= SceneUV.y - CROSSHAIR_TOP_CHEVRON_THICKNESS && SceneUV.x <= SceneUV.y + CROSSHAIR_TOP_CHEVRON_THICKNESS && SceneUV.y >= 0.5)
-                {
-                        OutColor =  CROSSHAIR_TOP_CHEVRON_COLOR;
-                }
-                else if (SceneUV.x >= 0.5 - CROSSHAIR_TOP_CHEVRON_SIZE && SceneUV.x <= 0.5 + CROSSHAIR_TOP_CHEVRON_SIZE && SceneUV.x >= 1 - SceneUV.y - CROSSHAIR_TOP_CHEVRON_THICKNESS && SceneUV.x <= 1 - SceneUV.y + CROSSHAIR_TOP_CHEVRON_THICKNESS && SceneUV.y >= 0.5)
-                {
-        		OutColor =  CROSSHAIR_TOP_CHEVRON_COLOR;
-        	}
-        	}
+    if (SceneUV.x >= 0.5 - CROSSHAIR_TOP_CHEVRON_SIZE && SceneUV.x <= 0.5 + CROSSHAIR_TOP_CHEVRON_SIZE && SceneUV.x >= chevronaspectRatio * SceneUV.y + ( 1 - chevronaspectRatio ) / 2 - CROSSHAIR_TOP_CHEVRON_THICKNESS && SceneUV.x <= chevronaspectRatio * SceneUV.y + ( 1 - chevronaspectRatio ) / 2 + CROSSHAIR_TOP_CHEVRON_THICKNESS && SceneUV.y <= 0.5)
+    {
+        OutColor =  CROSSHAIR_TOP_CHEVRON_COLOR;
+    }
+    else if (SceneUV.x >= 0.5 - CROSSHAIR_TOP_CHEVRON_SIZE && SceneUV.x <= 0.5 + CROSSHAIR_TOP_CHEVRON_SIZE && SceneUV.x >= 1 - chevronaspectRatio * SceneUV.y - ( 1 - chevronaspectRatio ) / 2 - CROSSHAIR_TOP_CHEVRON_THICKNESS && SceneUV.x <= 1 - chevronaspectRatio * SceneUV.y - ( 1 - chevronaspectRatio ) / 2 + CROSSHAIR_TOP_CHEVRON_THICKNESS && SceneUV.y <= 0.5)
+    {
+        OutColor =  CROSSHAIR_TOP_CHEVRON_COLOR;
+    }
+}
