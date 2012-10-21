@@ -1,48 +1,31 @@
 /***************************************************************************************/
-/*! \file Crosshair.usf
+/*! \file CrosshairDot1.usf
 * 
-* Adds a crosshair to APBr
+* Modular crosshair shape - Center Dot, original credit unknown, tweaked by Kimiko
+* Requires Crosshair.usf, CrosshairSettings.usf
 * 
-* 
-* Owned by dreamss, some code stolen from tobii and spec
-*
-* variable crosshair size added by Kimiko
-* and pretty much every change after that ... DYNAMIC_COLOR, internal color options, and making it work on rtw/1.9.1 shaders
-* fuckshadercoding
-*
-* Thanks to blizzy for the alternative crosshairs ENABLE_CROSSHAIR_DOT_2 ENABLE_CROSSHAIR_CIRCLE ENABLE_CROSSHAIR_CROSS
-* 
-*
-*
-* Usage: 
-*  Add '#include "Crosshair.usf"' to  APBUberPostProcessBlendPixelShader.usf before the bottom closing "}".
-*   view the included APBUberPostProcessBlendPixelShader.usf if you have questions
-*
-* DONT FORGET TO EDIT SCREEN_SIZE_X and SCREEN_SIZE_Y 
-*
-* IF THE GAME CRASHES CROSSHAIR_SIZE IS WAY TO BIG!
+* Please see the readme or CrosshairSettings.usf for settings to change
+* You don't need to make changes to this file.
 ****************************************************************************************/
 
 {
-  float2 ScreenSize = float2( CROSSHAIR_DOT_1_SIZE / SCREEN_SIZE_X , CROSSHAIR_DOT_1_SIZE / SCREEN_SIZE_Y );
-       
-       if(SceneUV.x >= 0.5 - ScreenSize.x && SceneUV.x <= 0.5 + ScreenSize.x && SceneUV.y >= 0.5 - ScreenSize.y && SceneUV.y <= 0.5 + ScreenSize.y)
-        {
-  			#if IN_CROSSHAIR_DOT_1_DYNAMIC_COLOR
-  			    OutColor = 1 - OutColor;
-	          OutColor.a = IN_CROSSHAIR_ALPHA;
-  			#else
-             OutColor = IN_CROSSHAIR_DOT_1_COLOR ;
-     		#endif // IN_CROSSHAIR_DOT_1_DYNAMIC_COLOR
-        }
-        else if (SceneUV.x >= 0.5 - ScreenSize.x * 2 && SceneUV.x <= 0.5 + ScreenSize.x * 2 && SceneUV.y >= 0.5 - ScreenSize.y * 2 && SceneUV.y <= 0.5 + ScreenSize.y * 2 )
-        {
-  			#if OUT_CROSSHAIR_DOT_1_DYNAMIC_COLOR
-  			    OutColor = 1 - OutColor;
-	          OutColor.a = OUT_CROSSHAIR_ALPHA;
-  			#else
-  			OutColor =  OUT_CROSSHAIR_DOT_1_COLOR; 
+    float2 ScreenSize = float2( CROSSHAIR_DOT_1_SIZE / SCREEN_SIZE_X , CROSSHAIR_DOT_1_SIZE / SCREEN_SIZE_Y );
+    
+	if(SceneUV.x >= 0.5 - ScreenSize.x && SceneUV.x <= 0.5 + ScreenSize.x && SceneUV.y >= 0.5 - ScreenSize.y && SceneUV.y <= 0.5 + ScreenSize.y)
+    {
+	    #if IN_CROSSHAIR_DOT_1_DYNAMIC_COLOR
+            OutColor.rgb = lerp(OutColor.rgb, float3(1.0,1.0,1.0) - OutColor.rgb, IN_CROSSHAIR_DOT_1_COLOR.a);
+        #else
+            OutColor.rgb = lerp(OutColor.rgb, IN_CROSSHAIR_DOT_1_COLOR.rgb, IN_CROSSHAIR_DOT_1_COLOR.a) ;
+        #endif // IN_CROSSHAIR_DOT_1_DYNAMIC_COLOR
+    }
+    else if (SceneUV.x >= 0.5 - ScreenSize.x * 2 && SceneUV.x <= 0.5 + ScreenSize.x * 2 && SceneUV.y >= 0.5 - ScreenSize.y * 2 && SceneUV.y <= 0.5 + ScreenSize.y * 2 )
+    {
+        #if OUT_CROSSHAIR_DOT_1_DYNAMIC_COLOR
+            OutColor.rgb = lerp(OutColor.rgb, float3(1.0,1.0,1.0) - OutColor.rgb, OUT_CROSSHAIR_DOT_1_COLOR.a);
+        #else
+            OutColor.rgb = lerp(OutColor.rgb, OUT_CROSSHAIR_DOT_1_COLOR.rgb, OUT_CROSSHAIR_DOT_1_COLOR.a) ;
         #endif // OUT_CROSSHAIR_DOT_1_DYNAMIC_COLOR
-        }
+    }
 
 }
