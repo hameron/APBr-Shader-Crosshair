@@ -30,8 +30,9 @@
 #if ENABLE_CROSSHAIR
 
 #define aspectRatio SCREEN_SIZE_X/SCREEN_SIZE_Y
-
-  #if ENABLE_CROSSHAIR_OPGL
+ float2 ScreenSize = float2( CROSSHAIR_DOT_1_SIZE / SCREEN_SIZE_X , CROSSHAIR_DOT_1_SIZE / SCREEN_SIZE_Y );
+  
+  #if ENABLE_CROSSHAIR_OPGL 
   #include "CrosshairOPGL.usf"
   #endif //ENABLE_CROSSHAIR_OPGL
    

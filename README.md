@@ -3,7 +3,7 @@ APBr-Shader-Crosshair
 
 Customizable crosshair for the game APB Reloaded
 
-Installation:
+Installation: 
 1. Copy all the Crosshair*.usf files to Engine\Shaders (Crosshair.usf, CrosshairSettings.usf, CrosshairDot1.usf, CrosshairDot2.usf, ...)
 2. Add '#include "Crosshair.usf"' to APBUberPostProcessBlendPixelShader.usf before the bottom closing "}". or use the included one.
 3. Edit CrosshairSettings.usf and enable the crosshair and change settings.
