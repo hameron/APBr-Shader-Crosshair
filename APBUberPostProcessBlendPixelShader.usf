@@ -116,8 +116,10 @@ half3 AdjustedColour = ColourAdjust(ToneMappedColour, UV);
 	//OutColor = float4(pow(saturate(LinearColor), GammaInverse), sceneColor.a);
 //	OutColor = float4(ToneMappedColour, sceneColor.a);
 	OutColor = float4(AdjustedColour, sceneColor.a);
-  	#include "Crosshair.usf"
+	
+  	
  //OutColor = float4(ToneMappedColour, FocusedSceneColorAndDepth.a);
-	
-	
+ 
+	#include "Crosshair.usf"
+	//add the include before here
 }
