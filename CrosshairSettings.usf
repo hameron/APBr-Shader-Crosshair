@@ -24,39 +24,52 @@
 ****************************************************************************************/
 
 {
-
+// 1 = enable 
 #define ENABLE_CROSSHAIR 1
-#define ENABLE_CROSSHAIR_TOP_CHEVRON 1
-#define ENABLE_CROSSHAIR_BOTTOM_CHEVRON 1
-#define ENABLE_CROSSHAIR_DOT_1 1
-#define ENABLE_CROSSHAIR_DOT_2 1
+#define ENABLE_CROSSHAIR_TOP_CHEVRON 0
+#define ENABLE_CROSSHAIR_BOTTOM_CHEVRON 0
+#define ENABLE_CROSSHAIR_DOT_1 0
+#define ENABLE_CROSSHAIR_DOT_2 0
 #define ENABLE_CROSSHAIR_CIRCLE 0
-#define ENABLE_CROSSHAIR_CROSS 1
-#define ENABLE_CROSSHAIR_OPGL 1
+#define ENABLE_CROSSHAIR_CROSS 0
+#define ENABLE_CROSSHAIR_OPGL 0
 
+// Monitor resolution
 #define SCREEN_SIZE_X 1920
 #define SCREEN_SIZE_Y 1080
 
+// Dot 1 shape settings
 #define CROSSHAIR_DOT_1_SIZE .8
 #define IN_CROSSHAIR_DOT_1_COLOR float4( 0, 0, 0, 1)
 #define IN_CROSSHAIR_DOT_1_DYNAMIC_COLOR 1
 #define OUT_CROSSHAIR_DOT_1_COLOR float4( 255, 0, 0, 1)
 #define OUT_CROSSHAIR_DOT_1_DYNAMIC_COLOR 0 
 
+//I officially give up, doesn't work when I try to manually calc SCREEN_SIZE_Y / SCREEN_SIZE_X. Set this yourself. Or don't, it's set to adjust to 16:9 for a 90 degree angle. -Kimiko
+//let me know/dreamss if anyone figures out how to calc this automaticly
+#define chevronaspectRatio .5625
+// Top chevron shape settings
 #define CROSSHAIR_TOP_CHEVRON_THICKNESS .001
 #define CROSSHAIR_TOP_CHEVRON_SIZE .01
 #define CROSSHAIR_TOP_CHEVRON_COLOR float4(0.0, 0.0, 0.0, 1)
 
+// Bottom chevron shape settings
 #define CROSSHAIR_BOTTOM_CHEVRON_THICKNESS .001
 #define CROSSHAIR_BOTTOM_CHEVRON_SIZE .01
 #define CROSSHAIR_BOTTOM_CHEVRON_COLOR float4(0.0, 0.0, 0.0, 1)
 
-//I officially give up, doesn't work when I try to manually calc SCREEN_SIZE_Y / SCREEN_SIZE_X. Set this yourself. Or don't, it's set to adjust to 16:9 for a 90 degree angle. -Kimiko
-#define chevronaspectRatio .5625
-
-
+// Blizzie dot shape settings
 #define CROSSHAIR_DOT_2_COLOR float4(0.0, 0.0, 0.0, 0.1)
 
+// Blizzie circle shape settings
+#define CROSSHAIR_CIRCLE_COLOR float4(255, 0, 0, 1.0)
+#define CROSSHAIR_CIRCLE_RADIOUS  .03
+
+// Blizzie cross shape settings
+#define CROSSHAIR_CROSS_COLOR float4(1.0, 1.0, 1.0, 1.0)
+#define CROSSHAIR_CROSS_SIZE .005
+
+// Inteoix OPGL shape settings
 #define CROSSHAIR_OPGL_RADIUS 0.00575
 #define CROSSHAIR_OPGL_WIDTH 0.0015
 #define CROSSHAIR_OPGL_CUTOFF 0.65
@@ -64,17 +77,9 @@
 #define CROSSHAIR_OPGL_ALPHA 1.0
 #define CROSSHAIR_OPGL_DYNAMIC_COLOR 1
 
-#define CROSSHAIR_CIRCLE_COLOR float4(255, 0, 0, 1.0)
-#define CROSSHAIR_CIRCLE_RADIOUS  .03
-
-
-#define CROSSHAIR_CROSS_COLOR float4(1.0, 1.0, 1.0, 1.0)
-#define CROSSHAIR_CROSS_SIZE .005
 
 
 
-
- 
  
 
 
