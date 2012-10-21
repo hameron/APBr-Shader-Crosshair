@@ -31,10 +31,13 @@
 
 #define aspectRatio SCREEN_SIZE_X/SCREEN_SIZE_Y
 
-
+  #if ENABLE_CROSSHAIR_OPGL
+  #include "CrosshairOPGL.usf"
+  #endif //ENABLE_CROSSHAIR_OPGL
+   
   #if ENABLE_CROSSHAIR_CIRCLE
 	#include "CrosshairCircle.usf"
-  #endif
+  #endif //ENABLE_CROSSHAIR_CIRCLE
 
   #if ENABLE_CROSSHAIR_TOP_CHEVRON
   #include "CrosshairChevronTop.usf"
