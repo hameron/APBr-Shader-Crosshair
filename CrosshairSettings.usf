@@ -1,7 +1,7 @@
 /***************************************************************************************/
 /*! \file CrosshairSettings.usf
 * 
-* Adds a crosshair to APBr
+* Configuration options for modular crosshair
 * 
 * 
 * Owned by dreamss, some code stolen from tobii and spec
@@ -10,82 +10,94 @@
 * and pretty much every change after that ... DYNAMIC_COLOR, internal color options, and making it work on rtw/1.9.1 shaders
 * fuckshadercoding
 *
-* Thanks to blizzy for the alternative crosshairs ENABLE_CROSSHAIR_DOT_2 ENABLE_CROSSHAIR_CIRCLE ENABLE_CROSSHAIR_CROSS
-* 
+* Thanks to Blizzie for the alternative crosshair shapes Dot 2, Circle, and Cross
+* Thanks to Inteoix for OPGL-shaped crosshairs and pointing out how to fix alpha
 *
 *
 * Usage: 
-*  Add '#include "Crosshair.usf"' to  APBUberPostProcessBlendPixelShader.usf before the bottom closing "}".
-*   view the included APBUberPostProcessBlendPixelShader.usf if you have questions
+*   See below for what each setting does, and edit to your liking.
 *
 * DONT FORGET TO EDIT SCREEN_SIZE_X and SCREEN_SIZE_Y 
 *
-* IF THE GAME CRASHES CROSSHAIR_SIZE IS WAY TO BIG!
+* IF THE GAME CRASHES CROSSHAIR_SIZE IS WAY TOO BIG!
 ****************************************************************************************/
 
 {
 // 1 = enable 
 #define ENABLE_CROSSHAIR 1
-#define ENABLE_CROSSHAIR_TOP_CHEVRON 0
-#define ENABLE_CROSSHAIR_BOTTOM_CHEVRON 0
-#define ENABLE_CROSSHAIR_DOT_1 0
+#define ENABLE_CROSSHAIR_DOT_1 1
 #define ENABLE_CROSSHAIR_DOT_2 0
-#define ENABLE_CROSSHAIR_CIRCLE 0
+#define ENABLE_CROSSHAIR_TOP_CHEVRON 1
+#define ENABLE_CROSSHAIR_BOTTOM_CHEVRON 1
+#define ENABLE_CROSSHAIR_CIRCLE 1
 #define ENABLE_CROSSHAIR_CROSS 0
 #define ENABLE_CROSSHAIR_OPGL 0
 
-// Monitor resolution
-#define SCREEN_SIZE_X 1920
-#define SCREEN_SIZE_Y 1080
+
+// Monitor resolution, INCLUDE THE .0 OR OTHER THINGS BREAK!!!
+#define SCREEN_SIZE_X 1920.0
+#define SCREEN_SIZE_Y 1080.0
+
 
 // Dot 1 shape settings
 #define CROSSHAIR_DOT_1_SIZE .8
-#define IN_CROSSHAIR_DOT_1_COLOR float4( 0, 0, 0, 1)
-#define IN_CROSSHAIR_DOT_1_DYNAMIC_COLOR 1
-#define OUT_CROSSHAIR_DOT_1_COLOR float4( 255, 0, 0, 1)
-#define OUT_CROSSHAIR_DOT_1_DYNAMIC_COLOR 0 
+// R, G, B, Alpha with a range of 0.0 to 1.0
+#define IN_CROSSHAIR_DOT_1_COLOR float4( 1.0, 1.0, 1.0, 0.75)
+#define OUT_CROSSHAIR_DOT_1_COLOR float4( 0.0, 0.0, 0.0, 0.75)
+// Dynamic color - ignores color settings above (but uses alpha settings!!) and instead does roughly the inverse of whatever it's over.
+#define IN_CROSSHAIR_DOT_1_DYNAMIC_COLOR 0
+#define OUT_CROSSHAIR_DOT_1_DYNAMIC_COLOR 0
 
-//I officially give up, doesn't work when I try to manually calc SCREEN_SIZE_Y / SCREEN_SIZE_X. Set this yourself. Or don't, it's set to adjust to 16:9 for a 90 degree angle. -Kimiko
-//let me know/dreamss if anyone figures out how to calc this automaticly
-#define chevronaspectRatio .5625
+
+// Blizzie dot shape settings
+// R, G, B, Alpha with a range of 0.0 to 1.0 
+#define CROSSHAIR_DOT_2_COLOR float4(1.0, 0.0, 0.0, 0.1)
+
+
+// Chevron aspect ratio settings, leave this alone for a standard 90 degree spacing. Don't touch if you don't know what you're doing.
+#define chevronaspectRatio SCREEN_SIZE_Y/SCREEN_SIZE_X
+
 // Top chevron shape settings
 #define CROSSHAIR_TOP_CHEVRON_THICKNESS .001
 #define CROSSHAIR_TOP_CHEVRON_SIZE .01
-#define CROSSHAIR_TOP_CHEVRON_COLOR float4(0.0, 0.0, 0.0, 1)
+// R, G, B, Alpha with a range of 0.0 to 1.0
+#define CROSSHAIR_TOP_CHEVRON_COLOR float4(1.0, 0.0, 0.0, 0.5)
+// Dynamic color - ignores color settings above (but uses alpha settings!!) and instead does roughly the inverse of whatever it's over.
+#define CROSSHAIR_TOP_CHEVRON_DYNAMIC_COLOR 0
+
 
 // Bottom chevron shape settings
 #define CROSSHAIR_BOTTOM_CHEVRON_THICKNESS .001
 #define CROSSHAIR_BOTTOM_CHEVRON_SIZE .01
-#define CROSSHAIR_BOTTOM_CHEVRON_COLOR float4(0.0, 0.0, 0.0, 1)
+// R, G, B, Alpha with a range of 0.0 to 1.0
+#define CROSSHAIR_BOTTOM_CHEVRON_COLOR float4(1.0, 0.0, 0.0, 0.5)
+// Dynamic color - ignores color settings above (but uses alpha settings!!) and instead does roughly the inverse of whatever it's over.
+#define CROSSHAIR_BOTTOM_CHEVRON_DYNAMIC_COLOR 0
 
-// Blizzie dot shape settings
-#define CROSSHAIR_DOT_2_COLOR float4(0.0, 0.0, 0.0, 0.1)
 
-// Blizzie circle shape settings
-#define CROSSHAIR_CIRCLE_COLOR float4(255, 0, 0, 1.0)
-#define CROSSHAIR_CIRCLE_RADIOUS  .03
+// Circle shape settings - credit: Blizzie
+#define CROSSHAIR_CIRCLE_RADIOUS  .023
+// R, G, B, Alpha with a range of 0.0 to 1.0 
+#define CROSSHAIR_CIRCLE_COLOR float4(1.0, 0.0, 0.0, 0.5)
+// Dynamic color - ignores color settings above (but uses alpha settings!!) and instead does roughly the inverse of whatever it's over.
+#define CROSSHAIR_CIRCLE_DYNAMIC_COLOR 0
 
-// Blizzie cross shape settings
-#define CROSSHAIR_CROSS_COLOR float4(1.0, 1.0, 1.0, 1.0)
+
+// Cross shape settings - credit: Blizzie
 #define CROSSHAIR_CROSS_SIZE .005
+// R, G, B, Alpha with a range of 0.0 to 1.0 
+#define CROSSHAIR_CROSS_COLOR float4(1.0, 1.0, 1.0, 0.75)
+// Dynamic color - ignores color settings above (but uses alpha settings!!) and instead does roughly the inverse of whatever it's over.
+#define CROSSHAIR_CROSS_DYNAMIC_COLOR 0
 
-// Inteoix OPGL shape settings
+
+// OPGL shape settings - credit: Inteoix
 #define CROSSHAIR_OPGL_RADIUS 0.00575
 #define CROSSHAIR_OPGL_WIDTH 0.0015
 #define CROSSHAIR_OPGL_CUTOFF 0.65
-#define CROSSHAIR_OPGL_COLOR float4(1.0, 1.0, 1.0, 1.0)
-#define CROSSHAIR_OPGL_ALPHA 1.0
+// R, G, B, Alpha with a range of 0.0 to 1.0 
+#define CROSSHAIR_OPGL_COLOR float4(1.0, 1.0, 1.0, 0.75)
+// Dynamic color - ignores color settings above (but uses alpha settings!!) and instead does roughly the inverse of whatever it's over.
 #define CROSSHAIR_OPGL_DYNAMIC_COLOR 1
-
-
-
-
- 
-
-
-// if someone figures out how to make this work let me know - it does not seem to make a difference
-#define IN_CROSSHAIR_ALPHA 1
-#define OUT_CROSSHAIR_ALPHA 1
-
 
 }
