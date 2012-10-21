@@ -7,19 +7,20 @@
 * \b NOW_OWNER: SJT           03/11/2008 <BR>
 * \b WAS_OWNER: Hugh Malan    20/02/2008 <BR>
 *
-* color grading mod by kimiko
-* crosshair.usf call
 * (c) 2008 Realtime Worlds Ltd.
 ****************************************************************************************/
- 
+
 #include "Common.usf"
 #include "PostProcessCommon.usf"
+#include "DepthOfFieldCommon.usf"
+
+#define SEPARATE_BLOOM 1
 
 sampler2D BlurredImage;
 
-// Bloom blend parameters.
-half BloomAlpha;
-half BloomPostScale;
+#if SEPARATE_BLOOM
+sampler2D BlurredImageSeperateBloom;
+#endif
 
 // Tone-mapping parameters.
 sampler2D AdaptedLuminance;
@@ -29,9 +30,7 @@ float Lwhite;
 // Colour adjustment parameters.
 float Brightness;
 float Contrast;
-float ColourPower;
 float Saturation;
-float3 PerChannelPower;
 float3 DesaturatedColour;
 
 #if USE_COLORGRADING
@@ -40,6 +39,43 @@ sampler2D ColorGradingLUT;
 
 // The per-color weighting to be used for luminance calculations in RGB order.
 static const half3 LuminanceVector = float3(0.3, 0.59, 0.11);
+
+// Calculate DOF and bloom for the pixel.
+float3 ApplyDOFAndBloom(half4 FocusedSceneColorAndDepth, float2 UV)
+{
+#if SEPARATE_BLOOM
+	// Sample DoF colour and blurred foreground circle of confusion.
+	half4 DOFColorAndWeight = MAX_SCENE_COLOR * tex2D(BlurredImage,UV);
+
+	half UnblurredForegroundCoC = CalcForegroundUnfocusedPercent(FocusedSceneColorAndDepth.a);
+	half BlurredForegroundCoC = DOFColorAndWeight.a;
+
+	// Combine blurred and unblurred CoC to get max area CoC.
+	half ForegroundCoC = saturate(2 * max(UnblurredForegroundCoC, BlurredForegroundCoC) - UnblurredForegroundCoC);
+
+	// Combine foreground and background.
+	half CoC = max(ForegroundCoC, CalcBackgroundUnfocusedPercent(FocusedSceneColorAndDepth.a));
+
+	// Lerp between blurred and unblurred based on CoC.
+	half3 Result = lerp(FocusedSceneColorAndDepth.rgb, DOFColorAndWeight.rgb, CoC);
+
+	// Add in bloom contribution.
+	Result += MAX_SCENE_COLOR * tex2D(BlurredImageSeperateBloom, UV).rgb;
+	return Result;
+
+#else
+
+	half FocusedWeight = saturate(1 - CalcUnfocusedPercent(FocusedSceneColorAndDepth.a));
+
+	//Scale color back up as it was compressed to the [0-1] range to fit in the fixed point filter buffer
+	half4 UnfocusedSceneColorAndWeight = MAX_SCENE_COLOR * tex2D(BlurredImage, UV);
+
+    half  WeightSum = max(FocusedWeight + saturate(UnfocusedSceneColorAndWeight.a), 0.001);
+	float3 BloomResult = (FocusedSceneColorAndDepth.rgb * FocusedWeight + UnfocusedSceneColorAndWeight.rgb) / WeightSum;
+
+	return BloomResult;
+#endif
+}
 
 // SJT: Perform tone mapping on a pixel.
 half3 ToneMap(float3 WorldColour)
@@ -56,16 +92,12 @@ half3 ToneMap(float3 WorldColour)
 }
 
 // SJT: Basic colour adjustment.
-half3 ColourAdjust(half3 InColour, float2 UV)
+half3 ColourAdjust(half3 InColour)
 {
 	half3 Result = InColour;
 
 	// Saturate before we do anything to prevent whackiness from values outside [0,1]
 	Result = saturate(Result);
-
-	// Power curve.
-	// DISABLED: This wasn't used, and costs a big chunk of time, so I've disabled it.
-	//Result = pow(Result, ColourPower * PerChannelPower);
 
 	// (De)saturate.
 	Result = lerp(dot(Result, LuminanceVector) * DesaturatedColour, Result, Saturation);
@@ -75,7 +107,7 @@ half3 ColourAdjust(half3 InColour, float2 UV)
 
 	// Brightness adjustment (addition).
 	Result = Result + Brightness;
-	
+
 	return Result;
 }
 
@@ -85,41 +117,29 @@ void Main(
 	out float4 OutColor : COLOR0
 	)
 {
-	//Scale color back up as it was compressed to the [0-1] range to fit in the fixed point filter buffer
-	half4 rawColor = tex2D(BlurredImage,UV);
-	float3 filteredColor = MAX_SCENE_COLOR * rawColor.rgb * BloomPostScale;
+	half4 FocusedSceneColorAndDepth = CalcSceneColorAndDepth(SceneUV);
 
-	float4 sceneColor=tex2D(SceneColorTexture,SceneUV);
-
-	float3 BloomResult = 1-(saturate(1-(filteredColor.rgb*BloomAlpha))*saturate(1-lerp(sceneColor.rgb, 0, BloomAlpha*saturate(rawColor.a*4))));
+	// Apply depth of field and bloom.
+	float3 DOFBloomResult = ApplyDOFAndBloom(FocusedSceneColorAndDepth, UV);
 
 	// SJT: Tone map the HDR colour.
-	half3 ToneMappedColour = ToneMap(BloomResult);
+	half3 ToneMappedColour = ToneMap(DOFBloomResult);
 
 #if USE_COLORGRADING
-	// TEMP: Convert to gamma-space.
-	//ToneMappedColour = pow(ToneMappedColour, 2.2);
-
-//	half3 AdjustedColour = ColorLookupTable(ColorGradingLUT, ToneMappedColour);
-
-	// TEMP: Convert back to linear space.
-	//ToneMappedColour = pow(ToneMappedColour, 1/2.2);
+	half3 AdjustedColour = ColorLookupTable(ColorGradingLUT, ToneMappedColour);
 #else
 	// SJT: Perform colour adjustment.
-//	half3 AdjustedColour = ColourAdjust(ToneMappedColour, UV);
+	half3 AdjustedColour = ColourAdjust(ToneMappedColour);
 #endif // USE_COLORGRADING
-half3 AdjustedColour = ColourAdjust(ToneMappedColour, UV);
+
 	// Gamma correction.
 	// DISABLED: This wasn't used when the UI is shown (i.e. most of the time!),
 	// and costs a big chunk of time, so I've disabled it.
 	//half3 LinearColor = AdjustedColour * GammaColorScale + GammaOverlayColor;
-	//OutColor = float4(pow(saturate(LinearColor), GammaInverse), sceneColor.a);
-//	OutColor = float4(ToneMappedColour, sceneColor.a);
-	OutColor = float4(AdjustedColour, sceneColor.a);
+	//OutColor = float4(pow(saturate(LinearColor), GammaInverse), FocusedSceneColorAndDepth.a);
+	OutColor = float4(AdjustedColour, FocusedSceneColorAndDepth.a);
 	
-  	
- //OutColor = float4(ToneMappedColour, FocusedSceneColorAndDepth.a);
- 
 	#include "Crosshair.usf"
-	//add the include before here
+	
+	
 }
