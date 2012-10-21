@@ -1,0 +1,34 @@
+/***************************************************************************************/
+/*! \file Crosshair.usf
+* 
+* Adds a crosshair to APBr
+* 
+* 
+* Owned by dreamss, some code stolen from tobii and spec
+*
+* variable crosshair size added by Kimiko
+* and pretty much every change after that ... DYNAMIC_COLOR, internal color options, and making it work on rtw/1.9.1 shaders
+* fuckshadercoding
+*
+* Thanks to blizzy for the alternative crosshairs ENABLE_CROSSHAIR_DOT_2 ENABLE_CROSSHAIR_CIRCLE ENABLE_CROSSHAIR_CROSS
+* 
+*
+*
+* Usage: 
+*  Add '#include "Crosshair.usf"' to  APBUberPostProcessBlendPixelShader.usf before the bottom closing "}".
+*   view the included APBUberPostProcessBlendPixelShader.usf if you have questions
+*
+* DONT FORGET TO EDIT SCREEN_SIZE_X and SCREEN_SIZE_Y 
+*
+* IF THE GAME CRASHES CROSSHAIR_SIZE IS WAY TO BIG!
+****************************************************************************************/
+{
+if (SceneUV.x >= 0.5 - CROSSHAIR_BOTTOM_CHEVRON_SIZE && SceneUV.x <= 0.5 + CROSSHAIR_BOTTOM_CHEVRON_SIZE && SceneUV.x >= SceneUV.y - CROSSHAIR_BOTTOM_CHEVRON_THICKNESS && SceneUV.x <= SceneUV.y + CROSSHAIR_BOTTOM_CHEVRON_THICKNESS && SceneUV.y <= 0.5)
+                {
+                        OutColor =  CROSSHAIR_BOTTOM_CHEVRON_COLOR;
+                }
+                else if (SceneUV.x >= 0.5 - CROSSHAIR_BOTTOM_CHEVRON_SIZE && SceneUV.x <= 0.5 + CROSSHAIR_BOTTOM_CHEVRON_SIZE && SceneUV.x >= 1 - SceneUV.y - CROSSHAIR_BOTTOM_CHEVRON_THICKNESS && SceneUV.x <= 1 - SceneUV.y + CROSSHAIR_BOTTOM_CHEVRON_THICKNESS && SceneUV.y <= 0.5)
+                {
+        		OutColor =  CROSSHAIR_BOTTOM_CHEVRON_COLOR;
+        	}
+}

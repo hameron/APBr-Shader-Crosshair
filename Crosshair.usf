@@ -1,0 +1,60 @@
+/***************************************************************************************/
+/*! \file Crosshair.usf
+* 
+* Adds a crosshair to APBr
+* 
+* 
+* Owned by dreamss, some code stolen from tobii and spec
+*
+* variable crosshair size added by Kimiko
+* and pretty much every change after that ... DYNAMIC_COLOR, internal color options, and making it work on rtw/1.9.1 shaders
+* fuckshadercoding
+*
+* Thanks to blizzy for the alternative crosshairs ENABLE_CROSSHAIR_DOT_2 ENABLE_CROSSHAIR_CIRCLE ENABLE_CROSSHAIR_CROSS
+* 
+*
+*
+* Usage: 
+*  Add '#include "Crosshair.usf"' to  APBUberPostProcessBlendPixelShader.usf before the bottom closing "}".
+*   view the included APBUberPostProcessBlendPixelShader.usf if you have questions
+*
+* DONT FORGET TO EDIT SCREEN_SIZE_X and SCREEN_SIZE_Y 
+*
+* IF THE GAME CRASHES CROSSHAIR_SIZE IS WAY TO BIG!
+****************************************************************************************/
+ 
+{
+	#include "CrosshairSettings.usf"
+	
+ 
+#if ENABLE_CROSSHAIR
+
+#define aspectRatio SCREEN_SIZE_X/SCREEN_SIZE_Y
+
+
+  #if ENABLE_CROSSHAIR_CIRCLE
+	#include "CrosshairCircle.usf"
+  #endif
+
+  #if ENABLE_CROSSHAIR_TOP_CHEVRON
+  #include "CrosshairChevronTop.usf"
+  #endif //ENABLE_CROSSHAIR_TOP_CHEVRON
+
+  #if ENABLE_CROSSHAIR_BOTTOM_CHEVRON
+  #include "CrosshairChevronBottom.usf"
+  #endif //ENABLE_CROSSHAIR_BOTTOM_CHEVRON
+
+  #if ENABLE_CROSSHAIR_CROSS
+  #include "CrosshairCross.usf"   
+  #endif //ENABLE_CROSSHAIR_CROSS
+
+  #if ENABLE_CROSSHAIR_DOT_2
+  #include "CrosshairDot1.usf" 
+  #endif //ENABLE_CROSSHAIR_DOT_1
+
+  #if ENABLE_CROSSHAIR_DOT_1
+  #include "CrosshairDot1.usf" 
+  #endif //ENABLE_CROSSHAIR_DOT_1
+ 
+#endif // ENABLE_CROSSHAIR
+}

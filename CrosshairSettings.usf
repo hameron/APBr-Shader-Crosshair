@@ -1,0 +1,75 @@
+/***************************************************************************************/
+/*! \file CrosshairSettings.usf
+* 
+* Adds a crosshair to APBr
+* 
+* 
+* Owned by dreamss, some code stolen from tobii and spec
+*
+* variable crosshair size added by Kimiko
+* and pretty much every change after that ... DYNAMIC_COLOR, internal color options, and making it work on rtw/1.9.1 shaders
+* fuckshadercoding
+*
+* Thanks to blizzy for the alternative crosshairs ENABLE_CROSSHAIR_DOT_2 ENABLE_CROSSHAIR_CIRCLE ENABLE_CROSSHAIR_CROSS
+* 
+*
+*
+* Usage: 
+*  Add '#include "Crosshair.usf"' to  APBUberPostProcessBlendPixelShader.usf before the bottom closing "}".
+*   view the included APBUberPostProcessBlendPixelShader.usf if you have questions
+*
+* DONT FORGET TO EDIT SCREEN_SIZE_X and SCREEN_SIZE_Y 
+*
+* IF THE GAME CRASHES CROSSHAIR_SIZE IS WAY TO BIG!
+****************************************************************************************/
+
+{
+
+#define ENABLE_CROSSHAIR 1
+#define ENABLE_CROSSHAIR_TOP_CHEVRON 1
+#define ENABLE_CROSSHAIR_BOTTOM_CHEVRON 1
+#define ENABLE_CROSSHAIR_DOT_1 1
+#define ENABLE_CROSSHAIR_DOT_2 1
+#define ENABLE_CROSSHAIR_CIRCLE 1
+#define ENABLE_CROSSHAIR_CROSS 1
+
+#define SCREEN_SIZE_X 1920
+#define SCREEN_SIZE_Y 1080
+
+#define CROSSHAIR_DOT_1_SIZE .8
+#define IN_CROSSHAIR_DOT_1_COLOR float4( 0, 0, 0, 1)
+#define IN_CROSSHAIR_DOT_1_DYNAMIC_COLOR 1
+#define OUT_CROSSHAIR_DOT_1_COLOR float4( 255, 0, 0, 1)
+#define OUT_CROSSHAIR_DOT_1_DYNAMIC_COLOR 0 
+
+#define CROSSHAIR_TOP_CHEVRON_THICKNESS .001
+#define CROSSHAIR_TOP_CHEVRON_SIZE .01
+#define CROSSHAIR_TOP_CHEVRON_COLOR float4(0.0, 0.0, 0.0, 1)
+
+#define CROSSHAIR_BOTTOM_CHEVRON_THICKNESS .001
+#define CROSSHAIR_BOTTOM_CHEVRON_SIZE .01
+#define CROSSHAIR_BOTTOM_CHEVRON_COLOR float4(0.0, 0.0, 0.0, 1)
+ 
+#define CROSSHAIR_DOT_2_COLOR float4(0.0, 0.0, 0.0, 0.1)
+
+
+#define CROSSHAIR_CIRCLE_COLOR float4(255, 0, 0, 1.0)
+#define CROSSHAIR_CIRCLE_RADIOUS  .03
+
+
+#define CROSSHAIR_CROSS_COLOR float4(1.0, 1.0, 1.0, 1.0)
+#define CROSSHAIR_CROSS_SIZE .005
+
+
+
+
+ 
+ 
+
+
+// if someone figures out how to make this work let me know - it does not seem to make a difference
+#define IN_CROSSHAIR_ALPHA 1
+#define OUT_CROSSHAIR_ALPHA 1
+
+
+}
