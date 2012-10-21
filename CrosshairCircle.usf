@@ -1,38 +1,27 @@
 /***************************************************************************************/
-/*! \file Crosshair.usf
+/*! \file CrosshairCircle.usf
 * 
-* Adds a crosshair to APBr
+* Modular crosshair shape - Circle by Blizzie
+* Requires Crosshair.usf, CrosshairSettings.usf
 * 
-* 
-* Owned by dreamss, some code stolen from tobii and spec
-*
-* variable crosshair size added by Kimiko
-* and pretty much every change after that ... DYNAMIC_COLOR, internal color options, and making it work on rtw/1.9.1 shaders
-* fuckshadercoding
-*
-* Thanks to blizzy for the alternative crosshairs ENABLE_CROSSHAIR_DOT_2 ENABLE_CROSSHAIR_CIRCLE ENABLE_CROSSHAIR_CROSS
-* 
-*
-*
-* Usage: 
-*  Add '#include "Crosshair.usf"' to  APBUberPostProcessBlendPixelShader.usf before the bottom closing "}".
-*   view the included APBUberPostProcessBlendPixelShader.usf if you have questions
-*
-* DONT FORGET TO EDIT SCREEN_SIZE_X and SCREEN_SIZE_Y 
-*
-* IF THE GAME CRASHES CROSSHAIR_SIZE IS WAY TO BIG!
+* Please see the readme or CrosshairSettings.usf for settings to change
+* You don't need to make changes to this file.
 ****************************************************************************************/
-	{
-	float newX = SceneUV.x * aspectRatio;
-		float centerX = 0.5 * aspectRatio;
-		float newY = SceneUV.y;
-		float centerY = 0.5;
-		float cDis;
+{
+    float newX = SceneUV.x * aspectRatio;
+    float centerX = 0.5 * aspectRatio;
+    float newY = SceneUV.y;
+    float centerY = 0.5;
+    float cDis;
 
-		cDis = sqrt(pow(newX - centerX, 2) + pow(newY - centerY, 2));
+    cDis = sqrt(pow(newX - centerX, 2) + pow(newY - centerY, 2));
 
-		if (cDis >= CROSSHAIR_CIRCLE_RADIOUS && cDis <= (CROSSHAIR_CIRCLE_RADIOUS+ 0.002f))
-		{
-			OutColor = CROSSHAIR_CIRCLE_COLOR;
-		}
-		}
+    if (cDis >= CROSSHAIR_CIRCLE_RADIOUS && cDis <= (CROSSHAIR_CIRCLE_RADIOUS+ 0.002f))
+    {
+        #if CROSSHAIR_CIRCLE_DYNAMIC_COLOR
+            OutColor.rgb = lerp(OutColor.rgb, float3(1.0,1.0,1.0) - OutColor.rgb, CROSSHAIR_CIRCLE_COLOR.a);
+        #else
+            OutColor.rgb = lerp(OutColor.rgb, CROSSHAIR_CIRCLE_COLOR.rgb, CROSSHAIR_CIRCLE_COLOR.a);
+        #endif
+    }
+}
