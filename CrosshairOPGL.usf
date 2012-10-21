@@ -1,28 +1,13 @@
 /***************************************************************************************/
-/*! \file Crosshair.usf
+/*! \file CrosshairOPGL.usf
 * 
-* Adds a crosshair to APBr
+* Modular crosshair shape - OPGL-style by Inteoix
+* Requires Crosshair.usf, CrosshairSettings.usf
 * 
-* 
-* Owned by dreamss, some code stolen from tobii and spec
-*
-* variable crosshair size added by Kimiko
-* and pretty much every change after that ... DYNAMIC_COLOR, internal color options, and making it work on rtw/1.9.1 shaders
-* fuckshadercoding
-*
-* Thanks to blizzy for the alternative crosshairs ENABLE_CROSSHAIR_DOT_2 ENABLE_CROSSHAIR_CIRCLE ENABLE_CROSSHAIR_CROSS
-* 
-*
-*
-* Usage: 
-*  Add '#include "Crosshair.usf"' to  APBUberPostProcessBlendPixelShader.usf before the bottom closing "}".
-*   view the included APBUberPostProcessBlendPixelShader.usf if you have questions
-*
-* DONT FORGET TO EDIT SCREEN_SIZE_X and SCREEN_SIZE_Y 
-*
-* IF THE GAME CRASHES CROSSHAIR_SIZE IS WAY TO BIG!
+* Please see the readme or CrosshairSettings.usf for settings to change
+* You don't need to make changes to this file.
 ****************************************************************************************/
-	{
+    {
 	   float radius_in = CROSSHAIR_OPGL_RADIUS - CROSSHAIR_OPGL_WIDTH;
        
         float2 uv = float2(SceneUV.x * aspectRatio, SceneUV.y);
@@ -42,10 +27,10 @@
                 if (dist < CROSSHAIR_OPGL_RADIUS && dist > radius_in)
                 {
                         #if CROSSHAIR_OPGL_DYNAMIC_COLOR
-                                OutColor.rgb = lerp(OutColor.rgb, float3(1.0,1.0,1.0) - OutColor.rgb, CROSSHAIR_OPGL_ALPHA);
+                                OutColor.rgb = lerp(OutColor.rgb, float3(1.0,1.0,1.0) - OutColor.rgb, CROSSHAIR_OPGL_COLOR.a);
                         #else
-                                OutColor.rgb = lerp(OutColor.rgb, CROSSHAIR_OPGL_COLOR, CROSSHAIR_OPGL_ALPHA);
+                                OutColor.rgb = lerp(OutColor.rgb, CROSSHAIR_OPGL_COLOR.rgb, CROSSHAIR_OPGL_COLOR.a);
                         #endif
                 }
         }
-		}
+    }
