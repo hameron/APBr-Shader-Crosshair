@@ -10,27 +10,27 @@
 * and pretty much every change after that ... DYNAMIC_COLOR, internal color options, and making it work on rtw/1.9.1 shaders
 * fuckshadercoding
 *
-* Thanks to blizzy for the alternative crosshairs ENABLE_CROSSHAIR_DOT_2 ENABLE_CROSSHAIR_CIRCLE ENABLE_CROSSHAIR_CROSS
-* 
+* Thanks to Blizzie for the alternative crosshair shapes Dot 2, Circle, and Cross
+* Thanks to Inteoix for OPGL-shaped crosshairs and pointing out how to fix alpha
 *
 *
 * Usage: 
 *  Add '#include "Crosshair.usf"' to  APBUberPostProcessBlendPixelShader.usf before the bottom closing "}".
 *   view the included APBUberPostProcessBlendPixelShader.usf if you have questions
+*  Edit CrosshairSettings.usf to set your screen size and other options.
 *
-* DONT FORGET TO EDIT SCREEN_SIZE_X and SCREEN_SIZE_Y 
-*
-* IF THE GAME CRASHES CROSSHAIR_SIZE IS WAY TO BIG!
+* You don't need to make changes to this file - See CrosshairSettings.usf
+* IF THE GAME CRASHES CROSSHAIR_SIZE IS WAY TOO BIG!
 ****************************************************************************************/
  
 {
-	#include "CrosshairSettings.usf"
+#include "CrosshairSettings.usf"
 	
  
 #if ENABLE_CROSSHAIR
 
- #define aspectRatio SCREEN_SIZE_X/SCREEN_SIZE_Y
- float2 ScreenSize = float2( CROSSHAIR_DOT_1_SIZE / SCREEN_SIZE_X , CROSSHAIR_DOT_1_SIZE / SCREEN_SIZE_Y );
+  #define aspectRatio SCREEN_SIZE_X/SCREEN_SIZE_Y
+  float2 ScreenSize = float2( CROSSHAIR_DOT_1_SIZE / SCREEN_SIZE_X , CROSSHAIR_DOT_1_SIZE / SCREEN_SIZE_Y );
   
   #if ENABLE_CROSSHAIR_OPGL 
   #include "CrosshairOPGL.usf"
