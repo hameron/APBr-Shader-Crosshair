@@ -3,17 +3,19 @@ APBr-Shader-Crosshair
 
 Customizable crosshair for the game APB Reloaded
 
-Installation: 
+Installation:
+
 1. Copy all the Crosshair*.usf files to Engine\Shaders (Crosshair.usf, CrosshairSettings.usf, CrosshairDot1.usf, CrosshairDot2.usf, ...)
 2. Add '#include "Crosshair.usf"' to APBUberPostProcessBlendPixelShader.usf before the bottom closing "}". or use the included one.
-3. Edit CrosshairSettings.usf and enable the crosshair and change settings.
-
+3. Edit CrosshairSettings.usf and set your screen resolution.
+4. Enable/disable crosshairs of your choice in CrosshairSettings.usf, tweak color options to your liking.
 
 
 Notes:
-SCREEN_SIZE_X SCREEN_SIZE_Y must match your monitor resolution.
-Won't work if bloom is off
-Included APBUberPostProcessBlendPixelShader.usf is from rtw
-Its work in progress
-Make Sure your resolution is correct in APBr.. going from windowed to full screen sets 1080 to 1050 or something weird.
-Feel free to bundle it with your own shader pack. just leave the notes area alone 
+
+* This is a work in progress.
+* SCREEN_SIZE_X SCREEN_SIZE_Y must match your monitor resolution for aspect ratio correction.
+* Crosshair won't work if bloom is off.
+* Included APBUberPostProcessBlendPixelShader.usf is from 1.9.1 live, rename and use noblue/rtw shaders if you prefer them.
+* Make Sure your resolution is correct in APBr. Going from full screen to windowed and back sets a smaller resolution than it indicates, and it will throw off apsect ratio correction.
+* Feel free to bundle it with your own shader pack, just leave the notes area alone and please credit us.
