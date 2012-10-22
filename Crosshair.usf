@@ -34,6 +34,37 @@
   int CROSSHAIR_PIXEL_DRAWN = 0;
   
   if (CROSSHAIR_PIXEL_DRAWN == 0) {
+  #if ENABLE_CROSSHAIR_CUSTOM_1
+  #include "CrosshairCustom1.usf"
+  #endif //ENABLE_CROSSHAIR_CUSTOM_1
+  }
+
+  if (CROSSHAIR_PIXEL_DRAWN == 0) {
+  #if ENABLE_CROSSHAIR_CUSTOM_2
+  #include "CrosshairCustom2.usf"
+  #endif //ENABLE_CROSSHAIR_CUSTOM_2
+  }
+  
+  if (CROSSHAIR_PIXEL_DRAWN == 0) {
+  #if ENABLE_CROSSHAIR_CUSTOM_3
+  #include "CrosshairCustom3.usf"
+  #endif //ENABLE_CROSSHAIR_CUSTOM_3
+  }
+  
+  if (CROSSHAIR_PIXEL_DRAWN == 0) {
+  #if ENABLE_CROSSHAIR_CUSTOM_4
+  #include "CrosshairCustom4.usf"
+  #endif //ENABLE_CROSSHAIR_CUSTOM_4
+  }
+  
+  if (CROSSHAIR_PIXEL_DRAWN == 0) {
+  #if ENABLE_CROSSHAIR_CUSTOM_5
+  #include "CrosshairCustom5.usf"
+  #endif //ENABLE_CROSSHAIR_CUSTOM_5
+  }
+  
+  
+  if (CROSSHAIR_PIXEL_DRAWN == 0) {
   #if ENABLE_CROSSHAIR_DOT_1
   #include "CrosshairDot1.usf" 
   #endif //ENABLE_CROSSHAIR_DOT_1

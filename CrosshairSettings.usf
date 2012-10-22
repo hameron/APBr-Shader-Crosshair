@@ -33,6 +33,13 @@
 #define ENABLE_CROSSHAIR_CROSS 0
 #define ENABLE_CROSSHAIR_OPGL 0
 
+// User created crosshairs (not included). default filenames are CrosshairCustom1.usf CrosshairCustom2.usf CrosshairCustom3.usf CrosshairCustom4.usf CrosshairCustom5.usf
+#define ENABLE_CROSSHAIR_CUSTOM_1 0
+#define ENABLE_CROSSHAIR_CUSTOM_2 0
+#define ENABLE_CROSSHAIR_CUSTOM_3 0
+#define ENABLE_CROSSHAIR_CUSTOM_4 0
+#define ENABLE_CROSSHAIR_CUSTOM_5 0
+
 
 // Monitor resolution, INCLUDE THE .0 OR OTHER THINGS BREAK!!!
 #define SCREEN_SIZE_X 1920.0
@@ -102,4 +109,11 @@
 // Dynamic color - ignores color settings above (but uses alpha settings!!) and instead does roughly the inverse of whatever it's over.
 #define CROSSHAIR_OPGL_DYNAMIC_COLOR 1
 
+//MAKE SURE THIS FILES EXIST!!!! 
+//THIS SETTING IS NOT USED.
+#define CROSSHAIR_CUSTOM_1_NAME "CrosshairCustom1.usf"
+#define CROSSHAIR_CUSTOM_2_NAME "CrosshairCustom2.usf"
+#define CROSSHAIR_CUSTOM_3_NAME "CrosshairCustom3.usf"
+#define CROSSHAIR_CUSTOM_4_NAME "CrosshairCustom4.usf"
+#define CROSSHAIR_CUSTOM_5_NAME "CrosshairCustom5.usf"
 }
