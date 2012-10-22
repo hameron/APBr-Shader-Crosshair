@@ -31,34 +31,50 @@
 
   #define aspectRatio SCREEN_SIZE_X/SCREEN_SIZE_Y
   float2 ScreenSize = float2( CROSSHAIR_DOT_1_SIZE / SCREEN_SIZE_X , CROSSHAIR_DOT_1_SIZE / SCREEN_SIZE_Y );
+  int CROSSHAIR_PIXEL_DRAWN = 0;
   
-  #if ENABLE_CROSSHAIR_OPGL 
-  #include "CrosshairOPGL.usf"
-  #endif //ENABLE_CROSSHAIR_OPGL
-   
-  #if ENABLE_CROSSHAIR_CIRCLE
-  #include "CrosshairCircle.usf"
-  #endif //ENABLE_CROSSHAIR_CIRCLE
-
-  #if ENABLE_CROSSHAIR_TOP_CHEVRON
-  #include "CrosshairChevronTop.usf"
-  #endif //ENABLE_CROSSHAIR_TOP_CHEVRON
-
-  #if ENABLE_CROSSHAIR_BOTTOM_CHEVRON
-  #include "CrosshairChevronBottom.usf"
-  #endif //ENABLE_CROSSHAIR_BOTTOM_CHEVRON
-
-  #if ENABLE_CROSSHAIR_CROSS
-  #include "CrosshairCross.usf"   
-  #endif //ENABLE_CROSSHAIR_CROSS
-
-  #if ENABLE_CROSSHAIR_DOT_2
-  #include "CrosshairDot1.usf" 
-  #endif //ENABLE_CROSSHAIR_DOT_1
-
+  if (CROSSHAIR_PIXEL_DRAWN == 0) {
   #if ENABLE_CROSSHAIR_DOT_1
   #include "CrosshairDot1.usf" 
   #endif //ENABLE_CROSSHAIR_DOT_1
+  }
+  
+  if (CROSSHAIR_PIXEL_DRAWN == 0) {
+  #if ENABLE_CROSSHAIR_DOT_2
+  #include "CrosshairDot1.usf" 
+  #endif //ENABLE_CROSSHAIR_DOT_1
+  }
+
+  if (CROSSHAIR_PIXEL_DRAWN == 0) {
+  #if ENABLE_CROSSHAIR_CROSS
+  #include "CrosshairCross.usf"   
+  #endif //ENABLE_CROSSHAIR_CROSS
+  }  
+
+  if (CROSSHAIR_PIXEL_DRAWN == 0) {
+  #if ENABLE_CROSSHAIR_OPGL 
+  #include "CrosshairOPGL.usf"
+  #endif //ENABLE_CROSSHAIR_OPGL
+  }
+  
+  if (CROSSHAIR_PIXEL_DRAWN == 0) {
+  #if ENABLE_CROSSHAIR_CIRCLE
+  #include "CrosshairCircle.usf"
+  #endif //ENABLE_CROSSHAIR_CIRCLE
+  }
+  
+  if (CROSSHAIR_PIXEL_DRAWN == 0) {
+  #if ENABLE_CROSSHAIR_TOP_CHEVRON
+  #include "CrosshairChevronTop.usf"
+  #endif //ENABLE_CROSSHAIR_TOP_CHEVRON
+  }
+
+  if (CROSSHAIR_PIXEL_DRAWN == 0) {
+  #if ENABLE_CROSSHAIR_BOTTOM_CHEVRON
+  #include "CrosshairChevronBottom.usf"
+  #endif //ENABLE_CROSSHAIR_BOTTOM_CHEVRON
+  }
+
  
 #endif // ENABLE_CROSSHAIR
 }

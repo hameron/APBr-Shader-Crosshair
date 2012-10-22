@@ -13,6 +13,7 @@
     
 	if(SceneUV.x >= 0.5 - ScreenSize.x && SceneUV.x <= 0.5 + ScreenSize.x && SceneUV.y >= 0.5 - ScreenSize.y && SceneUV.y <= 0.5 + ScreenSize.y)
     {
+	    CROSSHAIR_PIXEL_DRAWN = 1;
 	    #if IN_CROSSHAIR_DOT_1_DYNAMIC_COLOR
             OutColor.rgb = lerp(OutColor.rgb, float3(1.0,1.0,1.0) - OutColor.rgb, IN_CROSSHAIR_DOT_1_COLOR.a);
         #else
@@ -21,6 +22,7 @@
     }
     else if (SceneUV.x >= 0.5 - ScreenSize.x * 2 && SceneUV.x <= 0.5 + ScreenSize.x * 2 && SceneUV.y >= 0.5 - ScreenSize.y * 2 && SceneUV.y <= 0.5 + ScreenSize.y * 2 )
     {
+        CROSSHAIR_PIXEL_DRAWN = 1;
         #if OUT_CROSSHAIR_DOT_1_DYNAMIC_COLOR
             OutColor.rgb = lerp(OutColor.rgb, float3(1.0,1.0,1.0) - OutColor.rgb, OUT_CROSSHAIR_DOT_1_COLOR.a);
         #else

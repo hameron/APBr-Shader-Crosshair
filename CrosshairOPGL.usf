@@ -26,6 +26,7 @@
  
                 if (dist < CROSSHAIR_OPGL_RADIUS && dist > radius_in)
                 {
+                        CROSSHAIR_PIXEL_DRAWN = 1;
                         #if CROSSHAIR_OPGL_DYNAMIC_COLOR
                                 OutColor.rgb = lerp(OutColor.rgb, float3(1.0,1.0,1.0) - OutColor.rgb, CROSSHAIR_OPGL_COLOR.a);
                         #else

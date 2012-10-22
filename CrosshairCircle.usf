@@ -18,6 +18,7 @@
 
     if (cDis >= CROSSHAIR_CIRCLE_RADIOUS && cDis <= (CROSSHAIR_CIRCLE_RADIOUS+ 0.002f))
     {
+        CROSSHAIR_PIXEL_DRAWN = 1;
         #if CROSSHAIR_CIRCLE_DYNAMIC_COLOR
             OutColor.rgb = lerp(OutColor.rgb, float3(1.0,1.0,1.0) - OutColor.rgb, CROSSHAIR_CIRCLE_COLOR.a);
         #else

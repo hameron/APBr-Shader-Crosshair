@@ -10,6 +10,7 @@
 {
     if (SceneUV.x >= 0.5 - CROSSHAIR_TOP_CHEVRON_SIZE && SceneUV.x <= 0.5 + CROSSHAIR_TOP_CHEVRON_SIZE && SceneUV.x >= chevronaspectRatio * SceneUV.y + ( 1 - chevronaspectRatio ) / 2 - CROSSHAIR_TOP_CHEVRON_THICKNESS && SceneUV.x <= chevronaspectRatio * SceneUV.y + ( 1 - chevronaspectRatio ) / 2 + CROSSHAIR_TOP_CHEVRON_THICKNESS && SceneUV.y <= 0.5)
     {
+        CROSSHAIR_PIXEL_DRAWN = 1;
         #if CROSSHAIR_TOP_CHEVRON_DYNAMIC_COLOR
             OutColor.rgb = lerp(OutColor.rgb, float3(1.0,1.0,1.0) - OutColor.rgb, CROSSHAIR_TOP_CHEVRON_COLOR.a);
         #else
@@ -18,6 +19,7 @@
     }
     else if (SceneUV.x >= 0.5 - CROSSHAIR_TOP_CHEVRON_SIZE && SceneUV.x <= 0.5 + CROSSHAIR_TOP_CHEVRON_SIZE && SceneUV.x >= 1 - chevronaspectRatio * SceneUV.y - ( 1 - chevronaspectRatio ) / 2 - CROSSHAIR_TOP_CHEVRON_THICKNESS && SceneUV.x <= 1 - chevronaspectRatio * SceneUV.y - ( 1 - chevronaspectRatio ) / 2 + CROSSHAIR_TOP_CHEVRON_THICKNESS && SceneUV.y <= 0.5)
     {
+        CROSSHAIR_PIXEL_DRAWN = 1;
         #if CROSSHAIR_TOP_CHEVRON_DYNAMIC_COLOR
             OutColor.rgb = lerp(OutColor.rgb, float3(1.0,1.0,1.0) - OutColor.rgb, CROSSHAIR_TOP_CHEVRON_COLOR.a);
         #else

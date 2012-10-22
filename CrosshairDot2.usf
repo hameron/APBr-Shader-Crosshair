@@ -11,6 +11,7 @@
 {
     if (SceneUV.x >= 0.498 && SceneUV.x <= 0.502 && SceneUV.y >= 0.498 && SceneUV.y <= 0.502)
     {
+        CROSSHAIR_PIXEL_DRAWN = 1;
         OutColor.rgb = lerp(OutColor.rgb, CROSSHAIR_DOT_2_COLOR.rgb, CROSSHAIR_DOT_2_COLOR.a);
     }
 }
