@@ -60,6 +60,7 @@
 // Top chevron shape settings
 #define CROSSHAIR_TOP_CHEVRON_THICKNESS .001
 #define CROSSHAIR_TOP_CHEVRON_SIZE .01
+#define CROSSHAIR_TOP_CHEVRON_GAP .003
 // R, G, B, Alpha with a range of 0.0 to 1.0
 #define CROSSHAIR_TOP_CHEVRON_COLOR float4(1.0, 0.0, 0.0, 0.5)
 // Dynamic color - ignores color settings above (but uses alpha settings!!) and instead does roughly the inverse of whatever it's over.
@@ -69,6 +70,7 @@
 // Bottom chevron shape settings
 #define CROSSHAIR_BOTTOM_CHEVRON_THICKNESS .001
 #define CROSSHAIR_BOTTOM_CHEVRON_SIZE .01
+#define CROSSHAIR_BOTTOM_CHEVRON_GAP .003
 // R, G, B, Alpha with a range of 0.0 to 1.0
 #define CROSSHAIR_BOTTOM_CHEVRON_COLOR float4(1.0, 0.0, 0.0, 0.5)
 // Dynamic color - ignores color settings above (but uses alpha settings!!) and instead does roughly the inverse of whatever it's over.
