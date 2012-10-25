@@ -91,7 +91,7 @@
 
 
 // Circle shape settings - credit: Blizzie
-#define CROSSHAIR_CIRCLE_RADIOUS  .023
+#define CROSSHAIR_CIRCLE_RADIUS  .023
 // R, G, B, Alpha with a range of 0.0 to 1.0 
 #define CROSSHAIR_CIRCLE_COLOR float4(1.0, 0.0, 0.0, 0.5)
 // Dynamic color - ignores color settings above (but uses alpha settings!!) and instead does roughly the inverse of whatever it's over.
