@@ -46,6 +46,12 @@
 #define SCREEN_SIZE_Y 1080.0
 
 
+// Limit the area at the center to check where to draw the crosshair. We dont want to run on every pixel do we?
+// Set it bigger if your crosshair gets cutoff
+// 0.0-100.0 where 100 means scan 100% of the screen
+#define CROSSHAIR_PIXEL_SCAN_LIMIT 8.0
+
+
 // Dot 1 shape settings
 #define CROSSHAIR_DOT_1_SIZE .8
 // R, G, B, Alpha with a range of 0.0 to 1.0

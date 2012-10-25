@@ -28,7 +28,13 @@
 	
  
 #if ENABLE_CROSSHAIR
+#define CROSSHAIR_PIXEL_SCAN_OFFSET_1 0.5-(CROSSHAIR_PIXEL_SCAN_LIMIT/200)
+#define CROSSHAIR_PIXEL_SCAN_OFFSET_2 0.5+(CROSSHAIR_PIXEL_SCAN_LIMIT/200)
 
+if (SceneUV.x > CROSSHAIR_PIXEL_SCAN_OFFSET_1) {
+if (SceneUV.x < CROSSHAIR_PIXEL_SCAN_OFFSET_2) {
+ if (SceneUV.y > CROSSHAIR_PIXEL_SCAN_OFFSET_1) {
+ if (SceneUV.y < CROSSHAIR_PIXEL_SCAN_OFFSET_2) {
   #define aspectRatio SCREEN_SIZE_X/SCREEN_SIZE_Y
   float2 ScreenSize = float2( CROSSHAIR_DOT_1_SIZE / SCREEN_SIZE_X , CROSSHAIR_DOT_1_SIZE / SCREEN_SIZE_Y );
   int CROSSHAIR_PIXEL_DRAWN = 0;
@@ -106,6 +112,6 @@
   #endif //ENABLE_CROSSHAIR_BOTTOM_CHEVRON
   }
 
- 
+}}}}//since it runs this per pixel, Im limiting the area of the screen where it checks to see if it will draw the crosshair ie better perfomance
 #endif // ENABLE_CROSSHAIR
 }
