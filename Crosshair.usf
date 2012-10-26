@@ -112,6 +112,12 @@ if (SceneUV.x < CROSSHAIR_PIXEL_SCAN_OFFSET_2) {
   #endif //ENABLE_CROSSHAIR_BOTTOM_CHEVRON
   }
 
+  if (CROSSHAIR_PIXEL_DRAWN == 0) {
+  #if ENABLE_CROSSHAIR_SQUARE
+  #include "CrosshairSquare.usf"
+  #endif //ENABLE_CROSSHAIR_SQUARE
+  }
+  
 }}}}//since it runs this per pixel, Im limiting the area of the screen where it checks to see if it will draw the crosshair ie better perfomance
 #endif // ENABLE_CROSSHAIR
 }

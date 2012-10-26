@@ -32,6 +32,7 @@
 #define ENABLE_CROSSHAIR_CIRCLE 1
 #define ENABLE_CROSSHAIR_CROSS 0
 #define ENABLE_CROSSHAIR_OPGL 0
+#define ENABLE_CROSSHAIR_SQUARE 1
 
 // User created crosshairs (not included). default filenames are CrosshairCustom1.usf CrosshairCustom2.usf CrosshairCustom3.usf CrosshairCustom4.usf CrosshairCustom5.usf
 #define ENABLE_CROSSHAIR_CUSTOM_1 0
@@ -114,6 +115,19 @@
 #define CROSSHAIR_OPGL_COLOR float4(1.0, 1.0, 1.0, 0.75)
 // Dynamic color - ignores color settings above (but uses alpha settings!!) and instead does roughly the inverse of whatever it's over.
 #define CROSSHAIR_OPGL_DYNAMIC_COLOR 1
+
+// Square shape settings
+// These *should* be after aspect ratio correction, making them appear the same size.
+#define CROSSHAIR_SQUARE_HEIGHT 0.01
+#define CROSSHAIR_SQUARE_WIDTH 0.01
+#define CROSSHAIR_SQUARE_THICKNESS 0.001
+// SMALL values here, will create a gap in the center of each side
+#define CROSSHAIR_SQUARE_HORIZ_GAP 0.005
+#define CROSSHAIR_SQUARE_VERT_GAP 0.005
+// R, G, B, Alpha with a range of 0.0 to 1.0 
+#define CROSSHAIR_SQUARE_COLOR float4(1.0, 1.0, 1.0, 0.75)
+// Dynamic color - ignores color settings above (but uses alpha settings!!) and instead does roughly the inverse of whatever it's over.
+#define CROSSHAIR_SQUARE_DYNAMIC_COLOR 0
 
 //MAKE SURE THIS FILES EXIST!!!! 
 //THIS SETTING IS NOT USED.
