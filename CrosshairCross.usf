@@ -50,7 +50,7 @@
 
 
 
-// Inner Color
+// Border Color
     if (DRAW_CROSSHAIR_CROSS_B == 1) 
     {
         CROSSHAIR_PIXEL_DRAWN = 1;
@@ -60,7 +60,7 @@
             OutColor.rgb = lerp(OutColor.rgb, CROSSHAIR_CROSS_BORDER_COLOR.rgb, CROSSHAIR_CROSS_BORDER_COLOR.a);
         #endif
     }
-// Border Color
+// Inner Color
     else if (DRAW_CROSSHAIR_CROSS_A == 1) 
     {
         CROSSHAIR_PIXEL_DRAWN = 1;
