@@ -55,7 +55,7 @@
     {
         CROSSHAIR_PIXEL_DRAWN = 1;
         #if CROSSHAIR_CROSS_BORDER_DYNAMIC_COLOR
-            OutColor.rgb = lerp(OutColor.rgb, float3(1.0,1.0,1.0) - OutColor.rgb, CROSSHAIR_CROSS_COLOR.a);
+            OutColor.rgb = lerp(OutColor.rgb, float3(1.0,1.0,1.0) - OutColor.rgb, CROSSHAIR_CROSS_BORDER_COLOR.a);
         #else
             OutColor.rgb = lerp(OutColor.rgb, CROSSHAIR_CROSS_BORDER_COLOR.rgb, CROSSHAIR_CROSS_BORDER_COLOR.a);
         #endif
